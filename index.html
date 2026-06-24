@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diário de Bordo & Portfólio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Courier+Prime:wght@400;700&family=Special+Elite&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #e8ddd0;
+            color: #3d2c1b;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+        }
+        
+        /* Papel envelhecido */
+        .paper-aged {
+            background: #f5ede4;
+            background-image: 
+                radial-gradient(ellipse at 20% 50%, rgba(200, 180, 160, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(200, 180, 160, 0.1) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(180, 160, 140, 0.03) 2px, rgba(180, 160, 140, 0.03) 4px);
+        }
+        
+        .paper-grain {
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(200, 185, 170, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(200, 185, 170, 0.1) 0%, transparent 25%),
+                repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(180, 165, 150, 0.03) 3px, rgba(180, 165, 150, 0.03) 6px);
+        }
+        
+        .bento-card {
+            background: #f5ede4;
+            border-radius: 16px;
+            border: 2px solid #8b7355;
+            box-shadow: 6px 6px 0px #6b5a44, inset 0 0 60px rgba(180, 160, 140, 0.1);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            padding: 24px;
+            position: relative;
+        }
+        
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 30px,
+                rgba(180, 165, 150, 0.03) 30px,
+                rgba(180, 165, 150, 0.03) 31px
+            );
+            pointer-events: none;
+            border-radius: 14px;
+        }
+        
+        .bento-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px #6b5a44;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #e8ddd0;
+            color: #3d2c1b;
+            border: 2px solid #8b7355;
+            border-radius: 10px;
+            box-shadow: 3px 3px 0px #6b5a44;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.1s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .btn:hover {
+            background: #ddd0c0;
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px #6b5a44;
+        }
+        
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #6b5a44;
+        }
+        
+        .btn-accent {
+            background: #c4a882;
+            color: #3d2c1b;
+        }
+        
+        .btn-accent:hover {
+            background: #b89b75;
+        }
+        
+        .btn-danger {
+            background: #e8d0c8;
+        }
+        
+        .btn-danger:hover {
+            background: #dcc0b8;
+        }
+        
+        .input-field {
+            background: #faf3ea;
+            border: 2px solid #8b7355;
+            border-radius: 8px;
+            padding: 8px 12px;
+            width: 100%;
+            font-family: 'Courier Prime', monospace;
+            font-size: 13px;
+            color: #3d2c1b;
+            transition: border-color 0.15s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #b89b75;
+            box-shadow: 0 0 0 3px rgba(184, 155, 117, 0.3);
+        }
+        
+        .input-field::placeholder {
+            color: #a89078;
+        }
+        
+        .wax-seal {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #c0392b;
+            background: radial-gradient(ellipse at 30% 30%, #e74c3c, #a93226);
+            border: 3px solid #8b7355;
+            box-shadow: 4px 4px 0px #6b5a44, inset 0 0 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Special Elite', cursive;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.2;
+            color: #f5ede4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+        
+        .wax-seal:hover {
+            transform: scale(1.05);
+            box-shadow: 6px 6px 0px #6b5a44, inset 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        .wax-seal:active {
+            transform: scale(0.95);
+        }
+        
+        .vintage-fade {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98) translateY(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .project-card {
+            background: #faf3ea;
+            border: 2px solid #8b7355;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 4px 4px 0px #6b5a44;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 0px #6b5a44;
+            background: #f5ede4;
+        }
+        
+        .project-card:active {
+            transform: translateY(0px);
+            box-shadow: 4px 4px 0px #6b5a44;
+        }
+        
+        .skill-badge {
+            padding: 12px;
+            border: 2px solid #8b7355;
+            border-radius: 12px;
+            box-shadow: 3px 3px 0px #6b5a44;
+            background: #faf3ea;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            background: #f5ede4;
+            border: 2px solid #8b7355;
+            border-radius: 8px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            font-weight: 900;
+            box-shadow: 1.5px 1.5px 0px #6b5a44;
+            margin: 2px;
+            color: #3d2c1b;
+        }
+        
+        .vintage-border {
+            border: 2px solid #8b7355;
+        }
+        
+        .vintage-shadow {
+            box-shadow: 4px 4px 0px #6b5a44;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(61, 44, 27, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-out;
+        }
+        
+        .modal-content {
+            background: #f5ede4;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 3px solid #8b7355;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 10px 10px 0px #6b5a44;
+        }
+        
+        .modal-content::-webkit-scrollbar { width: 6px; }
+        .modal-content::-webkit-scrollbar-track { background: #e8ddd0; }
+        .modal-content::-webkit-scrollbar-thumb { background: #c4a882; border-radius: 3px; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #e8ddd0; }
+        ::-webkit-scrollbar-thumb { background: #c4a882; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b89b75; }
+        
+        .hidden { display: none !important; }
+        
+        .tab-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px;
+            border-radius: 12px;
+            transition: all 0.15s ease;
+            border: 2px solid transparent;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 12px;
+            color: #5a4532;
+            cursor: pointer;
+            background: transparent;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(200, 185, 170, 0.3);
+        }
+        
+        .tab-btn.active {
+            background: #faf3ea;
+            border-color: #8b7355;
+            box-shadow: 3px 3px 0px #6b5a44;
+            font-weight: 900;
+            color: #3d2c1b;
+        }
+        
+        .tab-btn .desc {
+            display: block;
+            font-size: 9px;
+            color: #8b7355;
+            margin-top: 2px;
+        }
+        
+        .add-btn {
+            background: #c4a882;
+            border: 2px solid #8b7355;
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #3d2c1b;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            box-shadow: 2px 2px 0px #6b5a44;
+        }
+        
+        .add-btn:hover {
+            background: #b89b75;
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px #6b5a44;
+        }
+        
+        .add-btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #6b5a44;
+        }
+    </style>
+</head>
+<body class="paper-aged paper-grain">
+    <div id="app" class="min-h-screen flex items-center justify-center p-4"></div>
+
+    <script>
+        // ============================================================
+        // DATA
+        // ============================================================
+        const INITIAL_BIO = {
+            name: "Isabela Susuki",
+            title: "Arquiteta de Silício & Mecanógrafa",
+            shortBio: "Desenvolvedora de software e artífice digital. Traduzo a elegância mecânica do passado em sistemas robustos para a web moderna.",
+            longBio: "Trabalho unindo o carinho estético das velhas oficinas de engenharia à velocidade do silício moderno. Dedico atenção à precisão de cada linha de código, como engrenagens de um relógio de pêndulo.",
+            location: "São Paulo, Brasil",
+            avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300",
+            profession: "Engenheira de Software",
+            established: "Est. 2014"
+        };
+
+        const INITIAL_PROJECTS = [
+            {
+                id: "telegrafo",
+                title: "Telégrafo Binário",
+                subtitle: "Roteador de Mensagens",
+                date: "Junho, 1928",
+                description: "Protocolo de transmissão por pulsos eletromagnéticos simulados.",
+                longDescription: "Simula o fluxo de mensagens através de cabos submarinos usando processamento em tempo real.",
+                patentNumber: "PAT-A893-BL",
+                tags: ["WebSockets", "Node.js", "Morse"],
+                category: "maquinario",
+                link: "https://github.com"
+            },
+            {
+                id: "astrolabio",
+                title: "Astrolábio de Silício",
+                subtitle: "Instrumento Criptográfico",
+                date: "Fevereiro, 1980",
+                description: "Codificador baseado em anéis rotativos do século XVII.",
+                longDescription: "Expõe conceitos criptográficos através de engrenagens lógicas giratórias.",
+                patentNumber: "PAT-C441-ST",
+                tags: ["Canvas", "Ciphers", "Encryption"],
+                category: "artefato",
+                link: "https://github.com"
+            },
+            {
+                id: "diario",
+                title: "Diário de Bordo",
+                subtitle: "Coletor de Logs",
+                date: "Setembro, 1929",
+                description: "Sistema de captura de métricas como livro de couro virtual.",
+                longDescription: "Traduz telemetrias em caligrafia cursiva clássica com carimbos de cera.",
+                patentNumber: "PAT-D902-LOG",
+                tags: ["Telemetry", "Logging", "SVG"],
+                category: "manuscrito",
+                link: "https://github.com"
+            },
+            {
+                id: "pascal",
+                title: "Máquina de Pascal",
+                subtitle: "Calculadora Mecânica",
+                date: "Novembro, 1926",
+                description: "Recriação de calculadora com engrenagens virtuais.",
+                longDescription: "Processa expressões matemáticas com reações em cadeia de dígitos.",
+                patentNumber: "PAT-M102-CLC",
+                tags: ["Math", "State Machine", "Parsing"],
+                category: "maquinario",
+                link: "https://github.com"
+            }
+        ];
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let state = {
+            unlocked: false,
+            bio: { ...INITIAL_BIO },
+            projects: JSON.parse(JSON.stringify(INITIAL_PROJECTS)),
+            vinylOn: false,
+            soundOn: true,
+            activeTab: 'biografia',
+            filterCategory: 'todos',
+            selectedProject: null,
+            isEditorOpen: false,
+            currentTime: '',
+            editingBio: { ...INITIAL_BIO },
+            editingProjects: JSON.parse(JSON.stringify(INITIAL_PROJECTS)),
+            newProject: { title: '', subtitle: '', category: 'maquinario', date: '', link: 'https://github.com', description: '', tags: '' },
+            telegraphForm: { senderName: '', senderMail: '', subject: '', message: '' },
+            isTransmitting: false,
+            sentOk: false
+        };
+
+        // ============================================================
+        // AUDIO ENGINE (Otimizado - sem delay)
+        // ============================================================
+        let audioCtx = null;
+        let audioReady = false;
+
+        function initAudio() {
+            if (audioReady) return;
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                audioReady = true;
+            } catch (e) {
+                console.warn('Web Audio not supported');
+            }
+        }
+
+        function playTypewriter(type = 'key') {
+            if (!state.soundOn) return;
+            try {
+                if (!audioReady) initAudio();
+                if (!audioCtx || audioCtx.state === 'closed') return;
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const now = audioCtx.currentTime;
+                const bufferSize = audioCtx.sampleRate * 0.025;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * 0.25;
+                }
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.value = type === 'space' ? 300 : 1200;
+                filter.Q.value = 2;
+
+                const gain = audioCtx.createGain();
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                noise.start(now);
+                noise.stop(now + 0.05);
+
+                if (type === 'return') {
+                    const osc = audioCtx.createOscillator();
+                    const oscGain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1800, now);
+                    osc.frequency.exponentialRampToValueAtTime(1600, now + 0.12);
+                    oscGain.gain.setValueAtTime(0.03, now);
+                    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                    osc.connect(oscGain);
+                    oscGain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.16);
+                }
+            } catch (e) {}
+        }
+
+        function playBeep() {
+            try {
+                if (!audioReady) initAudio();
+                if (!audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = 750;
+                gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch (e) {}
+        }
+
+        // ============================================================
+        // STORAGE
+        // ============================================================
+        function saveState() {
+            try {
+                localStorage.setItem('portfolio_bio', JSON.stringify(state.bio));
+                localStorage.setItem('portfolio_projects', JSON.stringify(state.projects));
+                localStorage.setItem('portfolio_sound', String(state.soundOn));
+            } catch (e) {}
+        }
+
+        function loadState() {
+            try {
+                const bio = localStorage.getItem('portfolio_bio');
+                const projects = localStorage.getItem('portfolio_projects');
+                const sound = localStorage.getItem('portfolio_sound');
+                if (bio) state.bio = JSON.parse(bio);
+                if (projects) state.projects = JSON.parse(projects);
+                if (sound !== null) state.soundOn = sound === 'true';
+            } catch (e) {}
+        }
+
+        // ============================================================
+        // CLOCK
+        // ============================================================
+        function updateClock() {
+            const now = new Date();
+            state.currentTime = now.toLocaleTimeString('pt-BR', { hour12: false });
+            const timeEl = document.getElementById('clock-display');
+            if (timeEl) timeEl.textContent = state.currentTime;
+        }
+
+        // ============================================================
+        // RENDER (Otimizado - sem delay)
+        // ============================================================
+        function render() {
+            const app = document.getElementById('app');
+            if (!state.unlocked) {
+                app.innerHTML = renderCover();
+            } else {
+                app.innerHTML = renderPortfolio();
+            }
+            // Atualiza relógio após render
+            const timeEl = document.getElementById('clock-display');
+            if (timeEl) timeEl.textContent = state.currentTime;
+        }
+
+        // ============================================================
+        // COVER SCREEN
+        // ============================================================
+        function renderCover() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+            const stamp = `${day} de ${months[now.getMonth()]}, ${now.getFullYear()}`;
+            
+            return `
+                <div class="w-full max-w-xl bg-[#f5ede4] text-[#3d2c1b] rounded-2xl border-[3px] border-[#8b7355] p-6 md:p-10 shadow-[10px_10px_0px_#6b5a44] vintage-fade relative">
+                    <!-- Efeito de envelhecimento -->
+                    <div class="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-br from-[#f5ede4]/0 via-[#d4c8b8]/10 to-[#c4b8a8]/5"></div>
+                    
+                    <div class="space-y-6 relative z-10">
+                        <!-- Header -->
+                        <div class="flex justify-between items-start border-b-2 border-dashed border-[#8b7355]/30 pb-4">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-widest text-[#6b5a44] font-black font-mono">DIÁRIO OFICIAL</span>
+                                <p class="text-xs text-[#6b5a44] font-serif italic">${state.bio.location}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[9px] font-bold px-2 py-0.5 bg-[#e8ddd0] text-[#3d2c1b] rounded border border-[#8b7355]">
+                                    ${state.bio.established}
+                                </span>
+                                <div class="flex items-center gap-1 mt-1 text-[9px] text-[#6b5a44]">
+                                    <span>🕐</span>
+                                    <span id="clock-display">${state.currentTime}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Profile -->
+                        <div class="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+                            <div class="relative flex-none">
+                                <div class="w-24 h-24 bg-[#8b7355] overflow-hidden grayscale contrast-125 sepia-[45%] border-2 border-[#8b7355] rounded-xl shadow-[4px_4px_0px_#6b5a44] transform -rotate-2">
+                                    ${state.bio.avatarUrl ? 
+                                        `<img src="${state.bio.avatarUrl}" alt="${state.bio.name}" class="object-cover w-full h-full" referrerPolicy="no-referrer" loading="lazy" />` :
+                                        `<div class="w-full h-full flex items-center justify-center text-[#e8ddd0] text-4xl">👤</div>`
+                                    }
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-center sm:text-left flex-1">
+                                <span class="text-[9px] bg-[#e8ddd0] text-[#3d2c1b] border border-[#8b7355] px-2 py-0.5 rounded font-black uppercase">${state.bio.profession}</span>
+                                <h1 class="text-2xl font-serif font-black text-[#3d2c1b]">${state.bio.name}</h1>
+                                <p class="text-xs text-[#6b5a44] font-serif italic font-bold">${state.bio.title}</p>
+                                <p class="text-xs text-[#3d2c1b]/80 leading-relaxed font-medium">${state.bio.shortBio}</p>
+                            </div>
+                        </div>
+
+                        <!-- Wax Seal -->
+                        <div class="pt-4 border-t-2 border-dashed border-[#8b7355]/30 flex flex-col items-center">
+                            <p class="text-[10px] tracking-wider text-[#6b5a44] uppercase mb-4 font-bold text-center">
+                                Lacre emitido em<br/>
+                                <span class="text-[#3d2c1b] font-typewriter lowercase">${stamp}</span>
+                            </p>
+                            <button onclick="handleUnlock()" class="wax-seal">
+                                ROMPER<br/>LACRE
+                            </button>
+                            <span class="text-[10px] font-bold text-[#6b5a44] mt-3 animate-pulse-slow">▲ Clique no Sinete ▲</span>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="pt-4 border-t-2 border-dashed border-[#8b7355]/20 flex flex-wrap justify-center gap-3">
+                            <button onclick="handleToggleVinyl()" class="btn">
+                                ${state.vinylOn ? '🔊' : '🔇'} Vinil: ${state.vinylOn ? 'LIGADO' : 'MUTADO'}
+                            </button>
+                            <button onclick="handleToggleSound()" class="btn">
+                                ${state.soundOn ? '🔊' : '🔇'} Teclas: ${state.soundOn ? 'LIGADO' : 'MUTADO'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // PORTFOLIO SCREEN
+        // ============================================================
+        function renderPortfolio() {
+            const filtered = state.projects.filter(p => 
+                state.filterCategory === 'todos' || p.category === state.filterCategory
+            );
+
+            return `
+                <div class="w-full max-w-5xl space-y-6 vintage-fade">
+                    <!-- Top Bar -->
+                    <div class="bg-[#e8ddd0] text-[#3d2c1b] px-4 py-3 md:px-6 rounded-2xl border-[3px] border-[#8b7355] shadow-[6px_6px_0px_#6b5a44] flex flex-wrap justify-between items-center gap-3">
+                        <div class="flex items-center gap-3">
+                            <button onclick="handleClose()" class="btn">
+                                ← Sair
+                            </button>
+                            <div class="h-5 w-px bg-[#8b7355]/30"></div>
+                            <span class="text-xs font-black uppercase">Artífice</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold hidden sm:inline" id="clock-display">${state.currentTime}</span>
+                            <button onclick="handleOpenEditor()" class="btn">
+                                ✎ Configurar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Sidebar -->
+                        <div class="space-y-6">
+                            <div class="bento-card p-4">
+                                <span class="text-[10px] font-black uppercase text-[#6b5a44] tracking-widest block border-b-2 border-dashed border-[#8b7355]/20 pb-2 mb-2">INDEXADOR</span>
+                                ${[
+                                    { id: 'biografia', label: 'I. Biografia', desc: 'Histórico' },
+                                    { id: 'inventos', label: 'II. Patentes', desc: 'Projetos' },
+                                    { id: 'telegrafo', label: 'III. Telégrafo', desc: 'Mensagens' }
+                                ].map(tab => `
+                                    <button 
+                                        onclick="handleTabChange('${tab.id}')" 
+                                        class="tab-btn ${state.activeTab === tab.id ? 'active' : ''}"
+                                    >
+                                        ${tab.label}
+                                        <span class="desc">${tab.desc}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+
+                            <!-- ID Card -->
+                            <div class="bento-card relative">
+                                <div class="absolute top-3 right-3 w-12 h-12 border-2 border-dashed border-[#8b7355] rounded flex flex-col items-center justify-center bg-[#faf3ea]/50">
+                                    <span class="text-[6px] font-bold text-[#6b5a44]">EST.</span>
+                                    <span class="text-[8px] font-black text-[#3d2c1b]">1926</span>
+                                </div>
+                                <span class="text-[9px] font-black bg-[#e8ddd0] px-2 py-0.5 rounded border border-[#8b7355] uppercase inline-block mb-3">Autenticidade</span>
+                                <div class="space-y-1 text-xs">
+                                    <div class="flex justify-between border-b border-dashed border-[#8b7355]/20 pb-0.5">
+                                        <span class="text-[#6b5a44]">Profissão:</span>
+                                        <span class="font-extrabold text-[#3d2c1b]">${state.bio.profession}</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-dashed border-[#8b7355]/20 pb-0.5">
+                                        <span class="text-[#6b5a44]">Província:</span>
+                                        <span class="font-extrabold text-[#3d2c1b]">${state.bio.location}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-[#6b5a44]">Fundação:</span>
+                                        <span class="font-extrabold text-[#3d2c1b]">${state.bio.established}</span>
+                                    </div>
+                                </div>
+                                <div class="pt-2 mt-2 border-t-2 border-dashed border-[#8b7355]/25 text-center">
+                                    <p class="font-serif italic text-base tracking-widest font-black text-[#3d2c1b]">${state.bio.name}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div class="md:col-span-2">
+                            ${state.activeTab === 'biografia' ? renderBiografia() : ''}
+                            ${state.activeTab === 'inventos' ? renderInventos(filtered) : ''}
+                            ${state.activeTab === 'telegrafo' ? renderTelegrafo() : ''}
+                        </div>
+                    </div>
+
+                    ${state.selectedProject ? renderProjectModal() : ''}
+                    ${state.isEditorOpen ? renderEditorModal() : ''}
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // BIOGRAFIA TAB
+        // ============================================================
+        function renderBiografia() {
+            return `
+                <div class="bento-card space-y-6">
+                    <div class="border-b-2 border-dashed border-[#8b7355]/20 pb-3">
+                        <h2 class="text-xl font-serif font-black flex items-center gap-2 text-[#3d2c1b]">
+                            <span>🪶</span> Biografia
+                        </h2>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="w-28 h-28 flex-none bg-[#8b7355] overflow-hidden grayscale sepia-[45%] border-2 border-[#8b7355] rounded-xl shadow-[4px_4px_0px_#6b5a44] mx-auto md:mx-0">
+                            ${state.bio.avatarUrl ? 
+                                `<img src="${state.bio.avatarUrl}" alt="${state.bio.name}" class="object-cover w-full h-full" referrerPolicy="no-referrer" loading="lazy" />` :
+                                `<div class="w-full h-full flex items-center justify-center text-[#e8ddd0] text-4xl">👤</div>`
+                            }
+                        </div>
+                        <div class="space-y-3 flex-1">
+                            <h3 class="font-serif font-black text-lg text-[#3d2c1b]">${state.bio.name}</h3>
+                            <p class="text-sm text-[#3d2c1b]/80 leading-relaxed font-medium">${state.bio.longBio}</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t-2 border-dashed border-[#8b7355]/20">
+                        <h4 class="text-xs font-black uppercase tracking-widest text-[#6b5a44] mb-3">Habilidades</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            ${[
+                                { name: 'TypeScript/JS', rank: 'Excelente', bg: '#faf3ea' },
+                                { name: 'React/HTML5', rank: 'Avançado', bg: '#f5ede4' },
+                                { name: 'Tailwind CSS', rank: 'Mestre', bg: '#ede4d8' }
+                            ].map(skill => `
+                                <div class="skill-badge" style="background:${skill.bg}">
+                                    <p class="text-xs font-black text-[#3d2c1b]">${skill.name}</p>
+                                    <span class="text-[8px] font-black uppercase border border-[#8b7355] bg-[#faf3ea] px-1 rounded text-[#3d2c1b]">${skill.rank}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-[#f5ede4] border-l-4 border-[#c4a882] border-y-2 border-r-2 border-[#8b7355] rounded-xl text-xs italic text-[#3d2c1b]/80">
+                        "Nenhum autômato é perfeito até que cada engrenagem tenha sido polida com devoção."
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // INVENTOS TAB
+        // ============================================================
+        function renderInventos(filtered) {
+            return `
+                <div class="bento-card space-y-6">
+                    <div class="border-b-2 border-dashed border-[#8b7355]/20 pb-3 flex flex-wrap justify-between items-start gap-3">
+                        <div>
+                            <h2 class="text-xl font-serif font-black flex items-center gap-2 text-[#3d2c1b]">
+                                <span>🖨️</span> Patentes
+                            </h2>
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            ${['todos','maquinario','artefato','manuscrito'].map(cat => `
+                                <button 
+                                    onclick="handleFilterChange('${cat}')" 
+                                    class="px-2 py-0.5 rounded-lg text-[9px] font-bold border transition-all ${state.filterCategory === cat ? 'bg-[#c4a882] border-[#8b7355] shadow-[1px_1px_0px_#6b5a44] text-[#3d2c1b]' : 'border-transparent hover:bg-[#e8ddd0]/50 text-[#6b5a44]'}"
+                                >
+                                    ${cat === 'todos' ? 'Tudo' : cat}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        ${filtered.map(proj => `
+                            <div onclick="handleSelectProject('${proj.id}')" class="project-card">
+                                <span class="text-[8px] bg-[#e8ddd0] text-[#3d2c1b] border border-[#8b7355] font-bold px-1.5 py-0.5 rounded">${proj.patentNumber}</span>
+                                <h3 class="font-serif font-black text-[#3d2c1b] text-base mt-1">${proj.title}</h3>
+                                <p class="text-[10px] text-[#6b5a44] italic font-bold">${proj.subtitle}</p>
+                                <p class="text-[11px] text-[#3d2c1b]/70 leading-relaxed mt-2">${proj.description}</p>
+                                <div class="mt-3 pt-2 border-t-2 border-dashed border-[#8b7355]/15 flex justify-between text-[9px] font-bold">
+                                    <span class="text-[#6b5a44]">${proj.date}</span>
+                                    <span class="text-[#c4a882]">Ver detalhes →</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                        ${filtered.length === 0 ? '<div class="col-span-2 text-center py-8 text-[#6b5a44]">Nenhuma patente encontrada</div>' : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // TELEGRAFO TAB
+        // ============================================================
+        function renderTelegrafo() {
+            if (state.sentOk) {
+                return `
+                    <div class="bento-card space-y-4 text-center">
+                        <div class="w-14 h-14 rounded-full bg-[#e8ddd0] border-2 border-[#8b7355] flex items-center justify-center mx-auto shadow-[2px_2px_0px_#6b5a44]">
+                            <span style="font-size:28px; color: #3d2c1b;">✓</span>
+                        </div>
+                        <h4 class="font-serif font-black text-lg text-[#3d2c1b]">Mensagem Enviada!</h4>
+                        <p class="text-xs text-[#6b5a44]">Sua mensagem foi transmitida com sucesso.</p>
+                        <button onclick="handleResetTelegraph()" class="btn">Nova Mensagem</button>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="bento-card space-y-4">
+                    <div class="border-b-2 border-dashed border-[#8b7355]/20 pb-3 flex justify-between items-center">
+                        <div>
+                            <h2 class="text-xl font-serif font-black flex items-center gap-2 text-[#3d2c1b]">
+                                <span>✉️</span> Telégrafo
+                            </h2>
+                            <span class="text-[10px] text-[#6b5a44] italic font-bold">Despache uma mensagem</span>
+                        </div>
+                        <span class="text-[10px] bg-[#e8ddd0] text-[#3d2c1b] border border-[#8b7355] px-2 py-0.5 rounded font-black">MORSE</span>
+                    </div>
+
+                    <form onsubmit="handleSendTelegraph(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <input type="text" required placeholder="Nome" value="${state.telegraphForm.senderName}" 
+                                   onchange="state.telegraphForm.senderName = this.value" class="input-field" />
+                            <input type="email" required placeholder="E-mail" value="${state.telegraphForm.senderMail}" 
+                                   onchange="state.telegraphForm.senderMail = this.value" class="input-field" />
+                        </div>
+                        <input type="text" required placeholder="Assunto" value="${state.telegraphForm.subject}" 
+                               onchange="state.telegraphForm.subject = this.value" class="input-field" />
+                        <textarea required placeholder="Escreva sua mensagem..." rows="4" 
+                                  onchange="state.telegraphForm.message = this.value" class="input-field resize-none">${state.telegraphForm.message}</textarea>
+                        <button type="submit" ${state.isTransmitting ? 'disabled' : ''} class="btn btn-accent w-full flex items-center justify-center gap-2 ${state.isTransmitting ? 'opacity-50' : ''}">
+                            ${state.isTransmitting ? '<span class="animate-spin">⟳</span> Transmitindo...' : 'Enviar Telegrama →'}
+                        </button>
+                    </form>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // MODALS
+        // ============================================================
+        function renderProjectModal() {
+            const p = state.selectedProject;
+            return `
+                <div class="modal-overlay" onclick="if(event.target===this) handleCloseModal()">
+                    <div class="modal-content">
+                        <div class="border-b-2 border-dashed border-[#8b7355]/20 pb-3 mb-4 flex justify-between items-start">
+                            <div>
+                                <span class="text-[9px] font-black uppercase bg-[#e8ddd0] border border-[#8b7355] px-2 py-0.5 rounded">${p.category}</span>
+                                <h3 class="text-xl font-serif font-black mt-1 text-[#3d2c1b]">${p.title}</h3>
+                            </div>
+                            <span class="text-xs font-black bg-[#e8ddd0] border-2 border-[#8b7355] px-2 py-0.5 rounded-lg shadow-[2px_2px_0px_#6b5a44] text-[#3d2c1b]">${p.patentNumber}</span>
+                        </div>
+                        <div class="text-sm text-[#3d2c1b]/80 leading-relaxed space-y-4">
+                            <p>${p.longDescription || p.description}</p>
+                            ${p.tags ? `<div class="flex flex-wrap gap-1.5">${p.tags.map(t => `<span class="tag">♦ ${t}</span>`).join('')}</div>` : ''}
+                        </div>
+                        <div class="mt-6 pt-4 border-t-2 border-dashed border-[#8b7355]/25 flex flex-wrap justify-between items-center gap-3">
+                            <button onclick="handleCloseModal()" class="btn">Fechar</button>
+                            <a href="${p.link}" target="_blank" rel="noreferrer" class="btn btn-accent">GitHub ↗</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderEditorModal() {
+            return `
+                <div class="modal-overlay" onclick="if(event.target===this) handleCloseEditor()">
+                    <div class="modal-content" style="max-width: 800px;">
+                        <div class="border-b-2 border-dashed border-[#8b7355]/20 pb-3 flex flex-wrap justify-between items-center gap-3">
+                            <h3 class="text-xl font-serif font-black flex items-center gap-2 text-[#3d2c1b]">
+                                <span>✎</span> Configurações
+                            </h3>
+                            <button onclick="handleResetAll()" class="btn btn-danger">Resetar</button>
+                        </div>
+
+                        <!-- Bio Editor -->
+                        <div class="space-y-4 mt-4">
+                            <h4 class="text-[10px] font-black uppercase text-[#c4a882]">1. Identidade</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="text-[10px] font-black text-[#3d2c1b]">Nome</label>
+                                    <input type="text" value="${state.editingBio.name}" 
+                                           onchange="state.editingBio.name = this.value" class="input-field" />
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black text-[#3d2c1b]">Título</label>
+                                    <input type="text" value="${state.editingBio.title}" 
+                                           onchange="state.editingBio.title = this.value" class="input-field" />
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="text-[10px] font-black text-[#3d2c1b]">Local</label>
+                                    <input type="text" value="${state.editingBio.location}" 
+                                           onchange="state.editingBio.location = this.value" class="input-field" />
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black text-[#3d2c1b]">Profissão</label>
+                                    <input type="text" value="${state.editingBio.profession}" 
+                                           onchange="state.editingBio.profession = this.value" class="input-field" />
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black text-[#3d2c1b]">Estabelecimento</label>
+                                    <input type="text" value="${state.editingBio.established}" 
+                                           onchange="state.editingBio.established = this.value" class="input-field" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-[#3d2c1b]">Biografia Curta</label>
+                                <input type="text" value="${state.editingBio.shortBio}" 
+                                       onchange="state.editingBio.shortBio = this.value" class="input-field" />
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-[#3d2c1b]">Biografia Completa</label>
+                                <textarea rows="3" onchange="state.editingBio.longBio = this.value" class="input-field resize-none">${state.editingBio.longBio}</textarea>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-[#3d2c1b]">URL da Foto</label>
+                                <input type="text" value="${state.editingBio.avatarUrl}" 
+                                       onchange="state.editingBio.avatarUrl = this.value" class="input-field" />
+                            </div>
+                        </div>
+
+                        <!-- Projects Editor -->
+                        <div class="space-y-4 pt-4 border-t-2 border-dashed border-[#8b7355]/15">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-[10px] font-black uppercase text-[#c4a882]">2. Patentes</h4>
+                                <span class="text-[10px] text-[#6b5a44]">${state.editingProjects.length} projetos</span>
+                            </div>
+                            
+                            <div class="max-h-40 overflow-y-auto space-y-2 pr-1">
+                                ${state.editingProjects.map(p => `
+                                    <div class="p-3 bg-[#faf3ea] border-2 border-[#8b7355] rounded-xl flex justify-between items-center text-xs">
+                                        <div>
+                                            <span class="font-extrabold text-[#3d2c1b]">${p.title}</span>
+                                            <span class="text-[9px] text-[#6b5a44] block">${p.patentNumber} • ${p.category}</span>
+                                        </div>
+                                        <button onclick="handleDeletePatent('${p.id}')" class="p-1.5 bg-white border-2 border-[#8b7355] rounded-lg hover:bg-red-50 transition-all" title="Remover patente">
+                                            🗑️
+                                        </button>
+                                    </div>
+                                `).join('')}
+                                ${state.editingProjects.length === 0 ? '<div class="text-center py-4 text-[#6b5a44] text-xs">Nenhuma patente cadastrada</div>' : ''}
+                            </div>
+
+                            <!-- Add Project Form -->
+                            <div class="p-4 bg-[#faf3ea] border-2 border-[#8b7355] rounded-xl space-y-3">
+                                <h5 class="text-[10px] font-black uppercase text-[#6b5a44]">➕ Adicionar Novo Projeto</h5>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <input type="text" placeholder="Título *" value="${state.newProject.title}" 
+                                           onchange="state.newProject.title = this.value" class="input-field text-xs" />
+                                    <input type="text" placeholder="Subtítulo" value="${state.newProject.subtitle}" 
+                                           onchange="state.newProject.subtitle = this.value" class="input-field text-xs" />
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                    <select onchange="state.newProject.category = this.value" class="input-field text-xs">
+                                        <option value="maquinario" ${state.newProject.category === 'maquinario' ? 'selected' : ''}>⚙️ Maquinário</option>
+                                        <option value="artefato" ${state.newProject.category === 'artefato' ? 'selected' : ''}>💎 Artefato</option>
+                                        <option value="manuscrito" ${state.newProject.category === 'manuscrito' ? 'selected' : ''}>📜 Manuscrito</option>
+                                    </select>
+                                    <input type="text" placeholder="Data (ex: Junho, 1928)" value="${state.newProject.date}" 
+                                           onchange="state.newProject.date = this.value" class="input-field text-xs" />
+                                    <input type="text" placeholder="Link GitHub" value="${state.newProject.link}" 
+                                           onchange="state.newProject.link = this.value" class="input-field text-xs" />
+                                </div>
+                                <input type="text" placeholder="Descrição curta *" value="${state.newProject.description}" 
+                                       onchange="state.newProject.description = this.value" class="input-field text-xs" />
+                                <input type="text" placeholder="Tags (separadas por vírgula: React, Node, API)" value="${state.newProject.tags}" 
+                                       onchange="state.newProject.tags = this.value" class="input-field text-xs" />
+                                <button onclick="handleAddPatent()" class="add-btn">➕ Adicionar Projeto</button>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 mt-4 border-t-2 border-[#8b7355] flex flex-wrap justify-between gap-3">
+                            <button onclick="handleCloseEditor()" class="btn">Cancelar</button>
+                            <button onclick="handleSaveEditor()" class="btn btn-accent font-black">💾 Salvar Alterações</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // EVENT HANDLERS (Otimizados)
+        // ============================================================
+        function handleUnlock() {
+            playTypewriter('return');
+            state.unlocked = true;
+            render();
+        }
+
+        function handleClose() {
+            playTypewriter('space');
+            state.unlocked = false;
+            render();
+        }
+
+        function handleToggleVinyl() {
+            playTypewriter('space');
+            state.vinylOn = !state.vinylOn;
+            render();
+        }
+
+        function handleToggleSound() {
+            const s = !state.soundOn;
+            state.soundOn = s;
+            localStorage.setItem('portfolio_sound', String(s));
+            if (s) playTypewriter('key');
+            render();
+        }
+
+        function handleTabChange(tab) {
+            playTypewriter('key');
+            state.activeTab = tab;
+            render();
+        }
+
+        function handleFilterChange(cat) {
+            playTypewriter('key');
+            state.filterCategory = cat;
+            render();
+        }
+
+        function handleSelectProject(id) {
+            playTypewriter('return');
+            state.selectedProject = state.projects.find(p => p.id === id);
+            render();
+        }
+
+        function handleCloseModal() {
+            playTypewriter('space');
+            state.selectedProject = null;
+            render();
+        }
+
+        function handleOpenEditor() {
+            playTypewriter('return');
+            state.editingBio = { ...state.bio };
+            state.editingProjects = JSON.parse(JSON.stringify(state.projects));
+            state.newProject = { title: '', subtitle: '', category: 'maquinario', date: '', link: 'https://github.com', description: '', tags: '' };
+            state.isEditorOpen = true;
+            render();
+        }
+
+        function handleCloseEditor() {
+            state.isEditorOpen = false;
+            render();
+        }
+
+        function handleSaveEditor() {
+            playTypewriter('return');
+            state.bio = { ...state.editingBio };
+            state.projects = JSON.parse(JSON.stringify(state.editingProjects));
+            saveState();
+            state.isEditorOpen = false;
+            render();
+        }
+
+        function handleAddPatent() {
+            playTypewriter('return');
+            if (!state.newProject.title || !state.newProject.description) {
+                alert('Preencha pelo menos o Título e a Descrição!');
+                return;
+            }
+            
+            const code = Math.floor(Math.random() * 900) + 100;
+            const tags = state.newProject.tags ? state.newProject.tags.split(',').map(t => t.trim()).filter(t => t) : [];
+            
+            const newP = {
+                id: 'patent-' + Date.now(),
+                title: state.newProject.title,
+                subtitle: state.newProject.subtitle || 'Sem subtítulo',
+                category: state.newProject.category,
+                date: state.newProject.date || 'Data não informada',
+                description: state.newProject.description,
+                longDescription: state.newProject.description,
+                patentNumber: `PAT-X${code}`,
+                tags: tags.length ? tags : ['Projeto'],
+                link: state.newProject.link || 'https://github.com'
+            };
+            
+            state.editingProjects.push(newP);
+            state.newProject = { title: '', subtitle: '', category: 'maquinario', date: '', link: 'https://github.com', description: '', tags: '' };
+            render();
+        }
+
+        function handleDeletePatent(id) {
+            playTypewriter('space');
+            if (confirm('Remover esta patente?')) {
+                state.editingProjects = state.editingProjects.filter(p => p.id !== id);
+                render();
+            }
+        }
+
+        function handleResetAll() {
+            if (confirm('Resetar todas as configurações para o padrão?')) {
+                state.bio = { ...INITIAL_BIO };
+                state.projects = JSON.parse(JSON.stringify(INITIAL_PROJECTS));
+                localStorage.removeItem('portfolio_bio');
+                localStorage.removeItem('portfolio_projects');
+                state.isEditorOpen = false;
+                render();
+            }
+        }
+
+        function handleSendTelegraph(e) {
+            e.preventDefault();
+            playTypewriter('return');
+            state.isTransmitting = true;
+            render();
+
+            let ticks = 0;
+            const interval = setInterval(() => {
+                playBeep();
+                ticks++;
+                if (ticks >= 5) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        state.isTransmitting = false;
+                        state.sentOk = true;
+                        playTypewriter('return');
+                        render();
+                    }, 300);
+                }
+            }, 250);
+        }
+
+        function handleResetTelegraph() {
+            playTypewriter('space');
+            state.telegraphForm = { senderName: '', senderMail: '', subject: '', message: '' };
+            state.sentOk = false;
+            render();
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        loadState();
+        updateClock();
+        setInterval(updateClock, 1000);
+        
+        // Inicializa áudio ao primeiro clique
+        document.addEventListener('click', initAudio, { once: true });
+        
+        render();
+    </script>
+</body>
+</html>
